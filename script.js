@@ -1,5 +1,5 @@
 let currentSlide = 1;
-const totalSlides = 16;
+const totalSlides = 15;
 
 // Timer variables
 let startTime = Date.now();

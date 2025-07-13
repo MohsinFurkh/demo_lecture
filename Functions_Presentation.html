@@ -372,144 +372,168 @@
         <div class="slide-content">
             <h2 class="slide-title">What is a Function?</h2>
             <div class="definition-box">
+                <h3 class="text-xl font-semibold mb-4 text-center">The Formal Definition</h3>
                 <p class="text-lg mb-4">
-                    A function is a rule that assigns each element from a set called the <span class="highlight">Domain</span> 
-                    to <span class="highlight">exactly one</span> element in a set called the <span class="highlight">Codomain</span>.
+                    Mathematically, a function \( f \) from a set \( A \) (the domain) to a set \( B \) (the codomain) is a subset of the Cartesian product \( A \times B \) such that for every element \( a \in A \), there is exactly one element \( b \in B \) for which \( (a, b) \) is in the subset. We write this as \( f: A \to B \).
                 </p>
-                <p class="font-mono text-center bg-blue-50 p-3 rounded-lg">
-                    \( f: A \to B \) where \( A \) is the domain and \( B \) is the codomain
-                </p>
+                <div class="bg-indigo-50 p-4 rounded-lg text-center font-mono text-indigo-800 mb-4">
+                    \( f = \{ (a, b) | a \in A \text{ and } b \in B, \text{ and for each } a \in A, \text{ there is a unique } b \text{ such that } (a,b) \in f \} \)
+                </div>
+                <p class="text-gray-700 mb-2">This means two conditions must be met:</p>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li><strong>Total:</strong> Every element in the domain \(A\) must be mapped to some element in the codomain \(B\).</li>
+                    <li><strong>Well-defined:</strong> No element in the domain \(A\) can be mapped to more than one element in the codomain \(B\).</li>
+                </ul>
             </div>
-            <div class="grid-2 mt-6">
+            
+            <div class="grid-3 mt-6">
                 <div class="card">
                     <h3 class="font-semibold text-lg mb-2">Domain</h3>
-                    <p>The complete set of all possible inputs for the function</p>
-                    <p class="font-mono bg-blue-50 p-2 rounded mt-2 text-center">Example: {1, 2, 3}</p>
+                    <p class="text-sm mb-3">The complete set of all possible inputs for the function</p>
+                    <p class="font-mono bg-blue-50 p-2 rounded text-center">Example: {1, 2, 3}</p>
                 </div>
                 <div class="card">
                     <h3 class="font-semibold text-lg mb-2">Codomain</h3>
-                    <p>The set of all potential outputs. The function's outputs must belong to this set.</p>
-                    <p class="font-mono bg-red-50 p-2 rounded mt-2 text-center">Example: {A, B, C}</p>
+                    <p class="text-sm mb-3">The set of all potential outputs. The function's outputs must belong to this set.</p>
+                    <p class="font-mono bg-red-50 p-2 rounded text-center">Example: {A, B, C, D}</p>
+                </div>
+                <div class="card">
+                    <h3 class="font-semibold text-lg mb-2">Range</h3>
+                    <p class="text-sm mb-3">The set of all actual outputs that the function produces</p>
+                    <p class="font-mono bg-green-50 p-2 rounded text-center">Example: {A, B, C}</p>
+                </div>
+            </div>
+            
+            <div class="example-box mt-6">
+                <h3 class="font-semibold text-lg mb-3">Range vs Codomain Example</h3>
+                <div class="grid-2">
+                    <div>
+                        <p class="text-sm mb-2"><strong>Function:</strong> f(x) = x²</p>
+                        <p class="text-sm mb-2"><strong>Domain:</strong> {1, 2, 3}</p>
+                        <p class="text-sm mb-2"><strong>Codomain:</strong> {1, 4, 9, 16, 25}</p>
+                        <p class="text-sm mb-2"><strong>Range:</strong> {1, 4, 9}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-blue-700">Note: Range ⊆ Codomain</p>
+                        <p class="text-sm text-gray-700">The range is always a subset of the codomain</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <h3 class="font-semibold text-lg mb-3">Function Examples</h3>
+                <div class="grid-3">
+                    <div class="card border-2 border-green-400">
+                        <h3 class="font-semibold text-lg mb-2 text-green-700">This IS a Function</h3>
+                        <p class="text-sm mb-4">Each element maps to exactly one output</p>
+                        <div class="text-center">
+                            <div class="relative h-32">
+                                <!-- Domain -->
+                                <div class="absolute left-4 top-0">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">1</div>
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">2</div>
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">3</div>
+                                </div>
+                                
+                                <!-- Arrows -->
+                                <svg class="absolute inset-0 w-full h-full" style="pointer-events: none;">
+                                    <defs>
+                                        <marker id="arrowhead-good" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#10B981"/>
+                                        </marker>
+                                    </defs>
+                                    <!-- 1 -> A -->
+                                    <line x1="50" y1="15" x2="400" y2="15" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead-good)"/>
+                                    <!-- 2 -> B -->
+                                    <line x1="50" y1="55" x2="400" y2="55" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead-good)"/>
+                                    <!-- 3 -> C -->
+                                    <line x1="50" y1="95" x2="400" y2="65" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead-good)"/>
+                                </svg>
+                                
+                                <!-- Codomain -->
+                                <div class="absolute right-4 top-0">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm">A</div>
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">B</div>
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">C</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-2 border-red-400">
+                        <h3 class="font-semibold text-lg mb-2 text-red-700">NOT a Function</h3>
+                        <p class="text-sm mb-4">One input maps to multiple outputs</p>
+                        <div class="text-center">
+                            <div class="relative h-32">
+                                <!-- Domain -->
+                                <div class="absolute left-4 top-0">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">1</div>
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">2</div>
+                                </div>
+                                
+                                <!-- Arrows -->
+                                <svg class="absolute inset-0 w-full h-full" style="pointer-events: none;">
+                                    <defs>
+                                        <marker id="arrowhead-bad" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#EF4444"/>
+                                        </marker>
+                                    </defs>
+                                    <!-- 1 -> A -->
+                                    <line x1="50" y1="15" x2="400" y2="15" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad)"/>
+                                    <!-- 1 -> B (multiple outputs) -->
+                                    <line x1="50" y1="15" x2="400" y2="40" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad)"/>
+                                    <!-- 2 -> B -->
+                                    <line x1="50" y1="55" x2="400" y2="55" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad)"/>
+                                </svg>
+                                
+                                <!-- Codomain -->
+                                <div class="absolute right-4 top-0">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm">A</div>
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">B</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-2 border-red-400">
+                        <h3 class="font-semibold text-lg mb-2 text-red-700">NOT a Function</h3>
+                        <p class="text-sm mb-4">Some inputs have no output</p>
+                        <div class="text-center">
+                            <div class="relative h-32">
+                                <!-- Domain -->
+                                <div class="absolute left-4 top-0">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">1</div>
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">2</div>
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">3</div>
+                                </div>
+                                
+                                <!-- Arrows -->
+                                <svg class="absolute inset-0 w-full h-full" style="pointer-events: none;">
+                                    <defs>
+                                        <marker id="arrowhead-bad2" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#EF4444"/>
+                                        </marker>
+                                    </defs>
+                                    <!-- 1 -> A -->
+                                    <line x1="50" y1="15" x2="400" y2="15" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad2)"/>
+                                    <!-- 2 -> B -->
+                                    <line x1="50" y1="55" x2="400" y2="55" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad2)"/>
+                                    <!-- 3 has no arrow (no output) -->
+                                </svg>
+                                
+                                <!-- Codomain -->
+                                <div class="absolute right-4 top-0">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm">A</div>
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">B</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 7: Function Examples -->
+    <!-- Slide 7: Function Properties -->
     <div class="slide" id="slide-7">
-        <div class="slide-content">
-            <h2 class="slide-title">Function Examples</h2>
-            <div class="grid-3">
-                <div class="card border-2 border-green-400">
-                    <h3 class="font-semibold text-lg mb-2 text-green-700">This IS a Function</h3>
-                    <p class="text-sm mb-4">Each element maps to exactly one output</p>
-                    <div class="text-center">
-                        <div class="relative h-32">
-                            <!-- Domain -->
-                            <div class="absolute left-4 top-0">
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">1</div>
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">2</div>
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">3</div>
-                            </div>
-                            
-                            <!-- Arrows -->
-                            <svg class="absolute inset-0 w-full h-full" style="pointer-events: none;">
-                                <defs>
-                                    <marker id="arrowhead-good" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                                        <polygon points="0 0, 10 3.5, 0 7" fill="#10B981"/>
-                                    </marker>
-                                </defs>
-                                <!-- 1 -> A -->
-                                <line x1="50" y1="15" x2="200" y2="15" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead-good)"/>
-                                <!-- 2 -> B -->
-                                <line x1="50" y1="55" x2="200" y2="55" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead-good)"/>
-                                <!-- 3 -> C -->
-                                <line x1="50" y1="95" x2="200" y2="65" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead-good)"/>
-                            </svg>
-                            
-                            <!-- Codomain -->
-                            <div class="absolute right-4 top-0">
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm">A</div>
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">B</div>
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">C</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-2 border-red-400">
-                    <h3 class="font-semibold text-lg mb-2 text-red-700">NOT a Function</h3>
-                    <p class="text-sm mb-4">One input maps to multiple outputs</p>
-                    <div class="text-center">
-                        <div class="relative h-32">
-                            <!-- Domain -->
-                            <div class="absolute left-4 top-0">
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">1</div>
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">2</div>
-                            </div>
-                            
-                            <!-- Arrows -->
-                            <svg class="absolute inset-0 w-full h-full" style="pointer-events: none;">
-                                <defs>
-                                    <marker id="arrowhead-bad" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                                        <polygon points="0 0, 10 3.5, 0 7" fill="#EF4444"/>
-                                    </marker>
-                                </defs>
-                                <!-- 1 -> A -->
-                                <line x1="50" y1="15" x2="200" y2="15" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad)"/>
-                                <!-- 1 -> B (multiple outputs) -->
-                                <line x1="50" y1="15" x2="200" y2="40" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad)"/>
-                                <!-- 2 -> B -->
-                                <line x1="50" y1="55" x2="200" y2="55" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad)"/>
-                            </svg>
-                            
-                            <!-- Codomain -->
-                            <div class="absolute right-4 top-0">
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm">A</div>
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">B</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-2 border-red-400">
-                    <h3 class="font-semibold text-lg mb-2 text-red-700">NOT a Function</h3>
-                    <p class="text-sm mb-4">Some inputs have no output</p>
-                    <div class="text-center">
-                        <div class="relative h-32">
-                            <!-- Domain -->
-                            <div class="absolute left-4 top-0">
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">1</div>
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">2</div>
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm mt-2">3</div>
-                            </div>
-                            
-                            <!-- Arrows -->
-                            <svg class="absolute inset-0 w-full h-full" style="pointer-events: none;">
-                                <defs>
-                                    <marker id="arrowhead-bad2" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                                        <polygon points="0 0, 10 3.5, 0 7" fill="#EF4444"/>
-                                    </marker>
-                                </defs>
-                                <!-- 1 -> A -->
-                                <line x1="50" y1="15" x2="200" y2="15" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad2)"/>
-                                <!-- 2 -> B -->
-                                <line x1="50" y1="55" x2="200" y2="55" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead-bad2)"/>
-                                <!-- 3 has no arrow (no output) -->
-                            </svg>
-                            
-                            <!-- Codomain -->
-                            <div class="absolute right-4 top-0">
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm">A</div>
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-sm mt-2">B</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 8: Function Properties -->
-    <div class="slide" id="slide-8">
         <div class="slide-content">
             <h2 class="slide-title">Function Properties</h2>
             <div class="grid-3">
@@ -652,8 +676,8 @@
         </div>
     </div>
 
-    <!-- Slide 9: Counting Functions -->
-    <div class="slide" id="slide-9">
+    <!-- Slide 8: Counting Functions -->
+    <div class="slide" id="slide-8">
         <div class="slide-content">
             <h2 class="slide-title">Counting Functions</h2>
             <p class="slide-subtitle">Let |A| = m and |B| = n</p>
@@ -764,8 +788,8 @@
         </div>
     </div>
 
-    <!-- Slide 10: Function Composition -->
-    <div class="slide" id="slide-10">
+    <!-- Slide 9: Function Composition -->
+    <div class="slide" id="slide-9">
         <div class="slide-content">
             <h2 class="slide-title">Function Composition</h2>
             <div class="grid-2">
@@ -896,8 +920,8 @@
         </div>
     </div>
 
-    <!-- Slide 11: Inverse Functions -->
-    <div class="slide" id="slide-11">
+    <!-- Slide 10: Inverse Functions -->
+    <div class="slide" id="slide-10">
         <div class="slide-content">
             <h2 class="slide-title">Inverse Functions</h2>
             <div class="grid-2">
@@ -937,8 +961,8 @@
         </div>
     </div>
 
-    <!-- Slide 12: Key Function Types -->
-    <div class="slide" id="slide-12">
+    <!-- Slide 11: Key Function Types -->
+    <div class="slide" id="slide-11">
         <div class="slide-content">
             <h2 class="slide-title">Key Function Types</h2>
             <div class="grid-2">
@@ -960,8 +984,8 @@
         </div>
     </div>
 
-    <!-- Slide 13: Floor & Ceiling -->
-    <div class="slide" id="slide-13">
+    <!-- Slide 12: Floor & Ceiling -->
+    <div class="slide" id="slide-12">
         <div class="slide-content">
             <h2 class="slide-title">Floor & Ceiling Functions</h2>
             <div class="grid-2">
@@ -988,8 +1012,8 @@
         </div>
     </div>
 
-    <!-- Slide 14: Modulo Function -->
-    <div class="slide" id="slide-14">
+    <!-- Slide 13: Modulo Function -->
+    <div class="slide" id="slide-13">
         <div class="slide-content">
             <h2 class="slide-title">Modulo Function</h2>
             <div class="grid-2">
@@ -1015,8 +1039,8 @@
         </div>
     </div>
 
-    <!-- Slide 15: Applications -->
-    <div class="slide" id="slide-15">
+    <!-- Slide 14: Applications -->
+    <div class="slide" id="slide-14">
         <div class="slide-content">
             <h2 class="slide-title">Applications in Computer Science</h2>
             <div class="grid-2">
@@ -1038,8 +1062,8 @@
         </div>
     </div>
 
-    <!-- Slide 16: Conclusion -->
-    <div class="slide" id="slide-16">
+    <!-- Slide 15: Conclusion -->
+    <div class="slide" id="slide-15">
         <div class="slide-content">
             <h2 class="slide-title">Conclusion</h2>
             <div class="text-center">

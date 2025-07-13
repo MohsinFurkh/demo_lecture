@@ -5,6 +5,19 @@ const totalSlides = 15;
 let startTime = Date.now();
 let timerInterval;
 
+// Chart instances for cleanup
+let chartInstances = {};
+
+// Function to destroy existing charts
+function destroyCharts() {
+    Object.values(chartInstances).forEach(chart => {
+        if (chart && typeof chart.destroy === 'function') {
+            chart.destroy();
+        }
+    });
+    chartInstances = {};
+}
+
 function showSlide(n) {
     // Hide all slides
     document.querySelectorAll('.slide').forEach(slide => {
@@ -22,18 +35,45 @@ function showSlide(n) {
     document.getElementById('prev-btn').disabled = n === 1;
     document.getElementById('next-btn').disabled = n === totalSlides;
     
-    // Initialize charts if needed
+    // Destroy existing charts before initializing new ones
+    destroyCharts();
+    
+    // Initialize charts if needed with longer delay and resize trigger
+    if (n === 11) {
+        setTimeout(() => {
+            initIdentityAndConstantCharts();
+            // Force resize after initialization
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 50);
+        }, 300);
+    }
     if (n === 12) {
-        setTimeout(initIdentityAndConstantCharts, 100);
+        setTimeout(() => {
+            initFloorCeilingChart();
+            // Force resize after initialization
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 50);
+        }, 300);
     }
     if (n === 13) {
-        setTimeout(initFloorCeilingChart, 100);
+        setTimeout(() => {
+            initModuloChart();
+            // Force resize after initialization
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 50);
+        }, 300);
     }
     if (n === 14) {
-        setTimeout(initModuloChart, 100);
-    }
-    if (n === 15) {
-        setTimeout(initComplexityAndHashCharts, 100);
+        setTimeout(() => {
+            initComplexityAndHashCharts();
+            // Force resize after initialization
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 50);
+        }, 300);
     }
 }
 
@@ -81,7 +121,7 @@ function initIdentityAndConstantCharts() {
     const idCtx = document.getElementById('identityChart').getContext('2d');
     const idX = Array.from({length: 11}, (_, i) => i - 5);
     
-    new Chart(idCtx, {
+    chartInstances.identityChart = new Chart(idCtx, {
         type: 'line',
         data: {
             labels: idX,
@@ -110,7 +150,7 @@ function initIdentityAndConstantCharts() {
     const constCtx = document.getElementById('constantChart').getContext('2d');
     const constX = Array.from({length: 11}, (_, i) => i - 5);
     
-    new Chart(constCtx, {
+    chartInstances.constantChart = new Chart(constCtx, {
         type: 'line',
         data: {
             labels: constX,
@@ -148,7 +188,7 @@ function initFloorCeilingChart() {
         ceilValues.push(Math.ceil(x));
     }
     
-    new Chart(floorCtx, {
+    chartInstances.floorCeilingChart = new Chart(floorCtx, {
         type: 'line',
         data: {
             labels: xValues.filter((_, i) => i % 10 === 0),
@@ -192,7 +232,7 @@ function initModuloChart() {
         modYValues.push(x % mod);
     }
     
-    new Chart(modCtx, {
+    chartInstances.moduloChart = new Chart(modCtx, {
         type: 'line',
         data: {
             labels: modXValues.filter((_, i) => i % 20 === 0),
@@ -226,7 +266,7 @@ function initComplexityAndHashCharts() {
     const n = 50;
     const scale = 20;
     
-    new Chart(complexityCtx, {
+    chartInstances.complexityChart = new Chart(complexityCtx, {
         type: 'line',
         data: {
             labels: Array.from({length: n + 1}, (_, i) => i),
@@ -285,7 +325,7 @@ function initComplexityAndHashCharts() {
         hashData[hash]++;
     }
     
-    new Chart(hashCtx, {
+    chartInstances.hashChart = new Chart(hashCtx, {
         type: 'bar',
         data: {
             labels: hashLabels,

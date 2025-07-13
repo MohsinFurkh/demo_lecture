@@ -963,20 +963,22 @@
 
     <!-- Slide 11: Key Function Types -->
     <div class="slide" id="slide-11">
-        <div class="slide-content">
+        <div class="slide-content" style="max-width: 95vw;">
             <h2 class="slide-title">Key Function Types</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3 class="font-semibold text-lg mb-2">Identity Function</h3>
-                    <p class="text-sm mb-3">f(x) = x</p>
-                    <div class="chart-container">
+            <div class="grid-2" style="gap: 3rem;">
+                <div class="card" style="padding: 2rem;">
+                    <h3 class="font-semibold text-xl mb-3">Identity Function</h3>
+                    <p class="text-lg mb-4 font-mono bg-blue-50 p-3 rounded-lg text-center">f(x) = x</p>
+                    <p class="text-sm mb-4 text-gray-600">Maps every element to itself. The simplest possible function.</p>
+                    <div class="chart-container" style="height: 250px;">
                         <canvas id="identityChart"></canvas>
                     </div>
                 </div>
-                <div class="card">
-                    <h3 class="font-semibold text-lg mb-2">Constant Function</h3>
-                    <p class="text-sm mb-3">f(x) = c</p>
-                    <div class="chart-container">
+                <div class="card" style="padding: 2rem;">
+                    <h3 class="font-semibold text-xl mb-3">Constant Function</h3>
+                    <p class="text-lg mb-4 font-mono bg-green-50 p-3 rounded-lg text-center">f(x) = c</p>
+                    <p class="text-sm mb-4 text-gray-600">Maps every element to the same constant value.</p>
+                    <div class="chart-container" style="height: 250px;">
                         <canvas id="constantChart"></canvas>
                     </div>
                 </div>
@@ -986,25 +988,31 @@
 
     <!-- Slide 12: Floor & Ceiling -->
     <div class="slide" id="slide-12">
-        <div class="slide-content">
+        <div class="slide-content" style="max-width: 95vw;">
             <h2 class="slide-title">Floor & Ceiling Functions</h2>
-            <div class="grid-2">
-                <div>
+            <div class="grid-2" style="gap: 3rem;">
+                <div style="padding: 1rem;">
                     <div class="definition-box">
                         <p class="text-lg mb-4">Floor ⌊x⌋: rounds down to nearest integer</p>
                         <p class="text-lg mb-4">Ceiling ⌈x⌉: rounds up to nearest integer</p>
                     </div>
                     <div class="example-box">
-                        <p class="font-semibold mb-2">Examples:</p>
-                        <p>⌊3.14⌋ = 3</p>
-                        <p>⌈3.14⌉ = 4</p>
-                        <p>⌊-2.7⌋ = -3</p>
-                        <p>⌈-2.7⌉ = -2</p>
+                        <p class="font-semibold mb-3 text-lg">Examples:</p>
+                        <div class="grid-2" style="gap: 1rem;">
+                            <div>
+                                <p class="font-mono text-lg">⌊3.14⌋ = 3</p>
+                                <p class="font-mono text-lg">⌈3.14⌉ = 4</p>
+                            </div>
+                            <div>
+                                <p class="font-mono text-lg">⌊-2.7⌋ = -3</p>
+                                <p class="font-mono text-lg">⌈-2.7⌉ = -2</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <h3 class="font-semibold text-lg mb-2">Graph</h3>
-                    <div class="chart-container">
+                <div class="card" style="padding: 2rem;">
+                    <h3 class="font-semibold text-xl mb-3">Graph</h3>
+                    <div class="chart-container" style="height: 300px;">
                         <canvas id="floorCeilingChart"></canvas>
                     </div>
                 </div>
@@ -1014,24 +1022,32 @@
 
     <!-- Slide 13: Modulo Function -->
     <div class="slide" id="slide-13">
-        <div class="slide-content">
+        <div class="slide-content" style="max-width: 95vw;">
             <h2 class="slide-title">Modulo Function</h2>
-            <div class="grid-2">
-                <div>
+            <div class="grid-2" style="gap: 3rem;">
+                <div style="padding: 1rem;">
                     <div class="definition-box">
                         <p class="text-lg mb-4">Calculates the remainder of division</p>
                         <p class="text-center font-mono text-2xl bg-blue-50 p-4 rounded-lg">a mod b = remainder when a ÷ b</p>
                     </div>
                     <div class="example-box">
-                        <p class="font-semibold mb-2">Examples:</p>
-                        <p>17 mod 5 = 2</p>
-                        <p>23 mod 7 = 2</p>
-                        <p>8 mod 3 = 2</p>
+                        <p class="font-semibold mb-3 text-lg">Examples:</p>
+                        <div class="grid-3" style="gap: 1rem;">
+                            <div class="text-center">
+                                <p class="font-mono text-lg">17 mod 5 = 2</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-mono text-lg">23 mod 7 = 2</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-mono text-lg">8 mod 3 = 2</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <h3 class="font-semibold text-lg mb-2">Cyclic Nature</h3>
-                    <div class="chart-container">
+                <div class="card" style="padding: 2rem;">
+                    <h3 class="font-semibold text-xl mb-3">Cyclic Nature</h3>
+                    <div class="chart-container" style="height: 300px;">
                         <canvas id="moduloChart"></canvas>
                     </div>
                 </div>
@@ -1041,20 +1057,20 @@
 
     <!-- Slide 14: Applications -->
     <div class="slide" id="slide-14">
-        <div class="slide-content">
+        <div class="slide-content" style="max-width: 95vw;">
             <h2 class="slide-title">Applications in Computer Science</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3 class="font-semibold text-lg mb-3">Algorithm Complexity</h3>
-                    <p class="text-sm mb-3">Functions describe how resource usage scales with input size</p>
-                    <div class="chart-container">
+            <div class="grid-2" style="gap: 3rem;">
+                <div class="card" style="padding: 2rem;">
+                    <h3 class="font-semibold text-xl mb-3">Algorithm Complexity</h3>
+                    <p class="text-lg mb-4 text-gray-600">Functions describe how resource usage scales with input size</p>
+                    <div class="chart-container" style="height: 300px;">
                         <canvas id="complexityChart"></canvas>
                     </div>
                 </div>
-                <div class="card">
-                    <h3 class="font-semibold text-lg mb-3">Hash Functions</h3>
-                    <p class="text-sm mb-3">Map data of any size to fixed-size values</p>
-                    <div class="chart-container">
+                <div class="card" style="padding: 2rem;">
+                    <h3 class="font-semibold text-xl mb-3">Hash Functions</h3>
+                    <p class="text-lg mb-4 text-gray-600">Map data of any size to fixed-size values</p>
+                    <div class="chart-container" style="height: 300px;">
                         <canvas id="hashChart"></canvas>
                     </div>
                 </div>

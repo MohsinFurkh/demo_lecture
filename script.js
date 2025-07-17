@@ -1,22 +1,41 @@
 let currentSlide = 1;
-const totalSlides = 15;
-
-// Timer variables
-let startTime = Date.now();
+const totalSlides = 11; // Updated total slides
 let timerInterval;
+let seconds = 0;
+let charts = {}; // Object to hold chart instances
 
-// Chart instances for cleanup
-let chartInstances = {};
+document.addEventListener('DOMContentLoaded', () => {
+    showSlide(currentSlide);
+    startTimer();
 
-// Function to destroy existing charts
-function destroyCharts() {
-    Object.values(chartInstances).forEach(chart => {
-        if (chart && typeof chart.destroy === 'function') {
-            chart.destroy();
+    document.getElementById('prev-btn').addEventListener('click', () => {
+        if (currentSlide > 1) {
+            currentSlide--;
+            showSlide(currentSlide);
         }
     });
-    chartInstances = {};
-}
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+        if (currentSlide < totalSlides) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        } else if (e.key === 'ArrowRight') {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+    });
+});
 
 function showSlide(n) {
     // Hide all slides
@@ -38,283 +57,180 @@ function showSlide(n) {
     // Destroy existing charts before initializing new ones
     destroyCharts();
     
-    // Initialize charts if needed with longer delay and resize trigger
-    if (n === 11) {
+    // Initialize charts if needed
+    if (n === 9) { // Merged slide with all key function charts
         setTimeout(() => {
-            initIdentityAndConstantCharts();
-            // Force resize after initialization
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-            }, 50);
+            initKeyFunctionCharts();
+            window.dispatchEvent(new Event('resize'));
         }, 300);
     }
-    if (n === 12) {
-        setTimeout(() => {
-            initFloorCeilingChart();
-            // Force resize after initialization
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-            }, 50);
-        }, 300);
-    }
-    if (n === 13) {
-        setTimeout(() => {
-            initModuloChart();
-            // Force resize after initialization
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-            }, 50);
-        }, 300);
-    }
-    if (n === 14) {
+    if (n === 10) { // Applications slide (previously slide 12/14)
         setTimeout(() => {
             initComplexityAndHashCharts();
-            // Force resize after initialization
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-            }, 50);
+            window.dispatchEvent(new Event('resize'));
         }, 300);
     }
 }
 
-function nextSlide() {
-    if (currentSlide < totalSlides) {
-        currentSlide++;
-        showSlide(currentSlide);
+function startTimer() {
+    timerInterval = setInterval(() => {
+        seconds++;
+        let mins = Math.floor(seconds / 60);
+        let secs = seconds % 60;
+        document.getElementById('timer-clock').textContent =
+            `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }, 1000);
+}
+
+function destroyCharts() {
+    for (let id in charts) {
+        if (charts[id]) {
+            charts[id].destroy();
+            delete charts[id];
+        }
     }
 }
 
-function previousSlide() {
-    if (currentSlide > 1) {
-        currentSlide--;
-        showSlide(currentSlide);
-    }
+// New function to initialize all charts on the merged slide
+function initKeyFunctionCharts() {
+    initIdentityAndConstantCharts();
+    initFloorCeilingChart();
+    initModuloChart();
 }
 
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-    switch(e.key) {
-        case 'ArrowRight':
-        case ' ':
-            e.preventDefault();
-            nextSlide();
-            break;
-        case 'ArrowLeft':
-            e.preventDefault();
-            previousSlide();
-            break;
-        case 'f':
-        case 'F':
-            e.preventDefault();
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else {
-                document.documentElement.requestFullscreen();
-            }
-            break;
-    }
-});
-
-// Initialize charts
 function initIdentityAndConstantCharts() {
-    // Identity Chart
-    const idCtx = document.getElementById('identityChart').getContext('2d');
-    const idX = Array.from({length: 11}, (_, i) => i - 5);
-    
-    chartInstances.identityChart = new Chart(idCtx, {
-        type: 'line',
-        data: {
-            labels: idX,
-            datasets: [{
-                label: 'f(x) = x',
-                data: idX,
-                borderColor: 'rgba(59, 130, 246, 1)',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                borderWidth: 2,
-                pointRadius: 2,
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'x' } },
-                y: { title: { display: true, text: 'f(x)' } }
+    const identityCtx = document.getElementById('identityChart')?.getContext('2d');
+    if (identityCtx) {
+        charts.identityChart = new Chart(identityCtx, {
+            type: 'line',
+            data: {
+                labels: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5],
+                datasets: [{
+                    label: 'f(x) = x',
+                    data: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5],
+                    borderColor: '#3B82F6',
+                    tension: 0.1
+                }]
             },
-            plugins: { legend: { display: false } }
-        }
-    });
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
 
-    // Constant Chart
-    const constCtx = document.getElementById('constantChart').getContext('2d');
-    const constX = Array.from({length: 11}, (_, i) => i - 5);
-    
-    chartInstances.constantChart = new Chart(constCtx, {
-        type: 'line',
-        data: {
-            labels: constX,
-            datasets: [{
-                label: 'f(x) = 3',
-                data: constX.map(() => 3),
-                borderColor: 'rgba(16, 185, 129, 1)',
-                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                borderWidth: 2,
-                pointRadius: 0,
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'x' } },
-                y: { title: { display: true, text: 'f(x)' } }
+    const constantCtx = document.getElementById('constantChart')?.getContext('2d');
+    if (constantCtx) {
+        charts.constantChart = new Chart(constantCtx, {
+            type: 'line',
+            data: {
+                labels: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5],
+                datasets: [{
+                    label: 'f(x) = 3',
+                    data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+                    borderColor: '#10B981',
+                    tension: 0.1
+                }]
             },
-            plugins: { legend: { display: false } }
-        }
-    });
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
 }
 
 function initFloorCeilingChart() {
-    const floorCtx = document.getElementById('floorCeilingChart').getContext('2d');
-    const xValues = [];
-    const floorValues = [];
-    const ceilValues = [];
-    
-    for (let x = -3; x <= 3; x += 0.1) {
-        xValues.push(x.toFixed(1));
-        floorValues.push(Math.floor(x));
-        ceilValues.push(Math.ceil(x));
-    }
-    
-    chartInstances.floorCeilingChart = new Chart(floorCtx, {
-        type: 'line',
-        data: {
-            labels: xValues.filter((_, i) => i % 10 === 0),
-            datasets: [
-                {
-                    label: 'Floor ⌊x⌋',
-                    data: floorValues,
-                    borderColor: 'rgba(59, 130, 246, 1)',
-                    borderWidth: 2,
-                    pointRadius: 0
-                },
-                {
-                    label: 'Ceiling ⌈x⌉',
-                    data: ceilValues,
-                    borderColor: 'rgba(16, 185, 129, 1)',
-                    borderWidth: 2,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'x' } },
-                y: { title: { display: true, text: 'y' } }
+    const floorCeilingCtx = document.getElementById('floorCeilingChart')?.getContext('2d');
+    if (floorCeilingCtx) {
+        charts.floorCeilingChart = new Chart(floorCeilingCtx, {
+            type: 'line',
+            data: {
+                labels: [-3, -2.9, -2, -1.9, -1, -0.9, 0, 0.1, 1, 1.1, 2, 2.1, 3],
+                datasets: [{
+                    label: 'Floor(x)',
+                    data: [-3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3],
+                    borderColor: '#EF4444',
+                    stepped: true
+                }, {
+                    label: 'Ceiling(x)',
+                    data: [-3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3],
+                    borderColor: '#8B5CF6',
+                    stepped: true
+                }]
             },
-            plugins: { legend: { position: 'bottom' } }
-        }
-    });
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
 }
 
 function initModuloChart() {
-    const modCtx = document.getElementById('moduloChart').getContext('2d');
-    const modXValues = [];
-    const modYValues = [];
-    const mod = 5;
-    
-    for (let x = 0; x <= 15; x += 0.1) {
-        modXValues.push(x.toFixed(1));
-        modYValues.push(x % mod);
-    }
-    
-    chartInstances.moduloChart = new Chart(modCtx, {
-        type: 'line',
-        data: {
-            labels: modXValues.filter((_, i) => i % 20 === 0),
-            datasets: [{
-                label: `x mod ${mod}`,
-                data: modYValues,
-                borderColor: 'rgba(139, 92, 246, 1)',
-                borderWidth: 2,
-                pointRadius: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'x' } },
-                y: { 
-                    title: { display: true, text: `x mod ${mod}` },
-                    min: 0,
-                    max: mod
-                }
+    const moduloCtx = document.getElementById('moduloChart')?.getContext('2d');
+    if (moduloCtx) {
+        charts.moduloChart = new Chart(moduloCtx, {
+            type: 'line',
+            data: {
+                labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                datasets: [{
+                    label: 'x mod 4',
+                    data: [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2],
+                    borderColor: '#F97316',
+                    tension: 0.1
+                }]
             },
-            plugins: { legend: { display: false } }
-        }
-    });
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
 }
 
 function initComplexityAndHashCharts() {
-    // Complexity Chart
     const complexityCtx = document.getElementById('complexityChart').getContext('2d');
     const n = 50;
     const scale = 20;
-    
-    chartInstances.complexityChart = new Chart(complexityCtx, {
-        type: 'line',
-        data: {
-            labels: Array.from({length: n + 1}, (_, i) => i),
-            datasets: [
-                {
-                    label: 'O(1) - Constant',
-                    data: Array(n + 1).fill(5),
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 2,
-                    pointRadius: 0
-                },
-                {
-                    label: 'O(log n) - Logarithmic',
-                    data: Array.from({length: n + 1}, (_, i) => i > 0 ? Math.log2(i) * scale/2 : 0),
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    pointRadius: 0
-                },
-                {
-                    label: 'O(n) - Linear',
-                    data: Array.from({length: n + 1}, (_, i) => i * scale/20),
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 2,
-                    pointRadius: 0
-                },
-                {
-                    label: 'O(n²) - Quadratic',
-                    data: Array.from({length: n + 1}, (_, i) => i**2 * scale/1000),
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 2,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'Input Size (n)' } },
-                y: { 
-                    title: { display: true, text: 'Relative Time Complexity' },
-                    beginAtZero: true
-                }
+    if (complexityCtx) {
+        charts.complexityChart = new Chart(complexityCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: n + 1}, (_, i) => i),
+                datasets: [
+                    {
+                        label: 'O(1) - Constant',
+                        data: Array(n + 1).fill(5),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'O(log n) - Logarithmic',
+                        data: Array.from({length: n + 1}, (_, i) => i > 0 ? Math.log2(i) * scale/2 : 0),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'O(n) - Linear',
+                        data: Array.from({length: n + 1}, (_, i) => i * scale/20),
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 2,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'O(n²) - Quadratic',
+                        data: Array.from({length: n + 1}, (_, i) => i**2 * scale/1000),
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        pointRadius: 0
+                    }
+                ]
             },
-            plugins: { legend: { position: 'bottom' } }
-        }
-    });
-
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'Input Size (n)' } },
+                    y: { 
+                        title: { display: true, text: 'Relative Time Complexity' },
+                        beginAtZero: true
+                    }
+                },
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    }
     // Hash Chart
     const hashCtx = document.getElementById('hashChart').getContext('2d');
     const hashLabels = Array.from({length: 16}, (_, i) => i);
@@ -325,7 +241,7 @@ function initComplexityAndHashCharts() {
         hashData[hash]++;
     }
     
-    chartInstances.hashChart = new Chart(hashCtx, {
+    charts.hashChart = new Chart(hashCtx, {
         type: 'bar',
         data: {
             labels: hashLabels,
@@ -352,6 +268,9 @@ function initComplexityAndHashCharts() {
     });
 }
 
+
+
+    
 // Function composition interactive example
 function initCompositionExample() {
     const compInput = document.getElementById('comp-input');
@@ -380,7 +299,6 @@ function initCompositionExample() {
         updateComposition();
     }
 }
-
 // Timer functions
 function startTimer() {
     startTime = Date.now();

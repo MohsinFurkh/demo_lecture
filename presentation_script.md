@@ -9,7 +9,10 @@
 ## SLIDE 1: Title Slide (2-3 minutes)
 
 **Opening:**
-"Good morning everyone. I'm Dr. Mohsin Furkh Dar from the University of Hyderabad, and today I'll be presenting on 'Functions in Discrete Mathematics' - an interactive journey through the fundamental building blocks of computer science."
+""Good morning, respected panel members. Thank you for giving me this opportunity to introduce myself.
+I am Mohsin Furkh Dar, and I have recently submitted my PhD thesis at the University of Hyderabad, specializing in Deep Learning for Medical Image Analysis. I also hold an MPhil and MCA from the University of Kashmir, and I am a UGC JRF qualified scholar since 2019." 
+
+Today, I'll be presenting on 'Functions in Discrete Mathematics' - which is a fundamental topic that forms the backbone of computer science.
 
 **Key Points:**
 - "This presentation will cover core concepts and formal definitions that form the foundation of discrete mathematics"
